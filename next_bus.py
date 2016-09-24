@@ -4,12 +4,13 @@
 #
 from __future__ import print_function
 import json
+
+from config import demo_api_key
+
 try:
     from urllib2 import urlopen, Request
 except ImportError:
     from urllib.request import urlopen, Request
-
-demo_api_key = '6b700f7ea9db408e9745c207da7ca827'
 
 url = 'https://api.wmata.com/NextBusService.svc/json/jPredictions?StopID=1001498'	
 
@@ -28,7 +29,9 @@ data = json.loads(string_data)
 predictions = data['Predictions']
 
 for p in predictions:
-	if p['DirectionText'] == "South to Archives":
-		time = p['Minutes']
-	print(time)
+    if p['DirectionText'] == "South to Archives":
+        time = p['Minutes']
+        transit_time = str(time) + " minutes"
+        nextbus = "bus in "
+    print(nextbus, transit_time)
 
